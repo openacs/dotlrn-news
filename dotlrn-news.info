@@ -25,6 +25,7 @@
             <file type="data_model_create" db_type="postgresql" path="sql/postgresql/dotlrn-news-create.sql"/>
             <file type="data_model_drop" db_type="postgresql" path="sql/postgresql/dotlrn-news-drop.sql"/>
             <file type="query_file" db_type="oracle" path="tcl/dotlrn-news-procs-oracle.xql"/>
+            <file type="query_file" db_type="postgresql" path="tcl/dotlrn-news-procs-postgresql.xql"/>
             <file type="tcl_procs" path="tcl/dotlrn-news-procs.tcl"/>
         </files>
         <parameters>
