@@ -82,7 +82,6 @@ namespace eval dotlrn_news {
     }
 
     ad_proc -public add_user {
-	community_id
 	user_id
     } {
 	one time user-specifuc init
