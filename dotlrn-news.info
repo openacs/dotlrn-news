@@ -7,13 +7,12 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
 
-    <version name="0.1a" url="http://openforce.net/software/dotlrn/dotlrn-news/0.1">
+    <version name="0.1a" url="http://openforce.net/software/dotlrn/dotlrn-news/0.1a">
     <database-support>
         <database>oracle</database>
     </database-support>
         <owner url="mailto:arjun@openforce.net">Arjun Sanyal</owner>
         <owner url="mailto:ben@openforce.net">Ben Adida</owner>
-        <summary>dotlrn news</summary>
 
 	<provides url="dotlrn-news" version="0.1a"/>
         <requires url="news-portlet" version="0.1a"/>
