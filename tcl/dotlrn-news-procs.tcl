@@ -64,6 +64,11 @@ namespace eval dotlrn_news {
 	news_portlet::make_self_available $pt_id
 	news_portlet::add_self_to_page $pt_id $package_id
 
+	# set up the DS for the admin portal
+        set admin_portal_id [dotlrn_community::get_community_admin_portal_id $community_id]
+	news_admin_portlet::make_self_available $admin_portal_id
+	news_admin_portlet::add_self_to_page $admin_portal_id $package_id
+        
 	return $package_id
     }
 
