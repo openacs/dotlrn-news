@@ -29,21 +29,28 @@ namespace eval dotlrn_news {
     } {
         What's my applet key?
     } {
-        return "dotlrn_news"
+        return dotlrn_news
     }
 
     ad_proc -public package_key {
     } {
         What package do I deal with?
     } {
-	return "news"
+	return news
+    }
+
+    ad_proc -public my_package_key {
+    } {
+        What package do I deal with?
+    } {
+	return "dotlrn-news"
     }
 
     ad_proc -public get_pretty_name {
     } {
 	returns the pretty name
     } {
-	return "News"
+	return News
     }
 
     ad_proc -public add_applet {
@@ -80,7 +87,7 @@ namespace eval dotlrn_news {
             -package_id $package_id
         
         set args [ns_set create]
-        ns_set put $args "package_id" $package_id
+        ns_set put $args package_id $package_id
         add_portlet_helper $portal_id $args
 
 	return $package_id
@@ -120,8 +127,8 @@ namespace eval dotlrn_news {
 
         # use "append" here since we want to aggregate
         set args [ns_set create]
-        ns_set put $args "package_id" $package_id
-        ns_set put $args "param_action" "append"
+        ns_set put $args package_id $package_id
+        ns_set put $args param_action append
         add_portlet_helper $portal_id $args
     }
 
@@ -150,8 +157,8 @@ namespace eval dotlrn_news {
         # simple, no type specific stuff, just set some dummy values
 
         set args [ns_set create]
-        ns_set put $args "package_id" 0
-        ns_set put $args "param_action" "overwrite"
+        ns_set put $args package_id 0
+        ns_set put $args param_action overwrite
         add_portlet_helper $portal_id $args
     }
 
@@ -166,8 +173,8 @@ namespace eval dotlrn_news {
     } {
         news_portlet::add_self_to_page \
             -portal_id $portal_id \
-            -package_id [ns_set get $args "package_id"] \
-            -param_action [ns_set get $args "param_action"]
+            -package_id [ns_set get $args package_id] \
+            -param_action [ns_set get $args param_action]
     }
 
     ad_proc -public remove_portlet {
@@ -181,7 +188,7 @@ namespace eval dotlrn_news {
     } { 
         news_portlet::remove_self_from_page \
             -portal_id $portal_id \
-            -package_id [ns_set get $args "package_id"]
+            -package_id [ns_set get $args package_id]
     }
 
     ad_proc -public clone {
