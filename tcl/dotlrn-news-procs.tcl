@@ -99,8 +99,8 @@ namespace eval dotlrn_news {
     } {
 
 #	ad_return_complaint 1 "$community_id $user_id"
-	# Get the page_id by callback
-	set page_id [dotlrn_community::get_page_id $community_id $user_id]
+	# Get the portal_id by callback
+	set portal_id [dotlrn_community::get_portal_id $community_id $user_id]
 	
 	# Get the package_id by callback
 	set package_id [dotlrn_community::get_applet_package_id $community_id dotlrn_news]
@@ -112,9 +112,9 @@ namespace eval dotlrn_news {
 
 
 	# Make news DS available to this page
-	news_portlet::make_self_available $page_id
+	news_portlet::make_self_available $portal_id
 
-	news_portlet::add_self_to_page $page_id $package_id
+	news_portlet::add_self_to_page $portal_id $package_id
     }
 
     ad_proc -public remove_user {
@@ -123,17 +123,17 @@ namespace eval dotlrn_news {
     } {
 	Remove a user from a community
     } {
-	# Get the page_id
-	set page_id [dotlrn_community::get_page_id $community_id $user_id]
+	# Get the portal_id
+	set portal_id [dotlrn_community::get_portal_id $community_id $user_id]
 	
 	# Get the package_id by callback
 	set package_id [dotlrn_community::get_package_id $community_id]
 
 	# Remove the portal element
-	news_portlet::remove_self_from_page $page_id $package_id
+	news_portlet::remove_self_from_page $portal_id $package_id
 
 	# Buh Bye.
-	news_portlet::make_self_unavailable $page_id
+	news_portlet::make_self_unavailable $portal_id
 
 	# remove user permissions to see news folders
 	# nothing to do here
