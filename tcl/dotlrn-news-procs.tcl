@@ -67,6 +67,13 @@ namespace eval dotlrn_news {
         dotlrn_applet::add_applet_to_dotlrn -applet_key [applet_key]
     }
 
+    ad_proc -public remove_applet {
+    } {
+	One time destroy. 
+    } {
+        dotlrn_applet::remove_applet_from_dotlrn -applet_key [applet_key]
+    }
+
     ad_proc -public add_applet_to_community {
 	community_id
     } {
@@ -157,41 +164,64 @@ namespace eval dotlrn_news {
     }
 
     ad_proc -public remove_user_from_community {
-	community_id
-	user_id
+        community_id
+        user_id
     } {
-	Remove a user from a community
+        Remove a user from a community
     } {
         set package_id [dotlrn_community::get_applet_package_id $community_id [applet_key]]
-	set portal_id [dotlrn::get_workspace_portal_id $user_id]
+        set portal_id [dotlrn::get_workspace_portal_id $user_id]
 
-        news_portlet::remove_self_from_page \
-            -portal_id $portal_id \
-            -package_id $package_id
+        set args [ns_set create args]
+        ns_set put $args user_id $user_id
+        ns_set put $args community_id $community_id
+        ns_set put $args package_id $package_id
+        set list_args [list $portal_id $args]
+
+        remove_portlet $portal_id $args
     }
 	
     ad_proc -public add_portlet {
+        portal_id
         args
     } {
         A helper proc to add the underlying portlet to the given portal. 
         
-        @param args a list-ified array of args defined in add_applet_to_community
+        @param portal_id
+        @param args A list of key-value pairs (possibly user_id, community_id, and more)
     } {
         ns_log notice "** Error in [get_pretty_name]: 'add_portlet' not implemented!"
         ad_return_complaint 1  "Please notifiy the administrator of this error:
         ** Error in [get_pretty_name]: 'add_portlet' not implemented!"
     }
 
+
     ad_proc -public remove_portlet {
+        portal_id
         args
     } {
         A helper proc to remove the underlying portlet from the given portal. 
         
-        @param args a list-ified array of args defined in remove_applet_from_community
-    } {
-        ns_log notice "** Error in [get_pretty_name]: 'remove_portlet' not implemented!"
-        ad_return_complaint 1  "Please notifiy the administrator of this error:
-        ** Error in [get_pretty_name]: 'remove_portlet' not implemented!"
+        @param portal_id
+        @param args A list of key-value pairs (possibly user_id, community_id, and more)
+    } { 
+        set user_id [ns_set get $args "user_id"]
+        set community_id [ns_set get $args "community_id"]
+
+        if {![empty_string_p $user_id]} {
+            # the portal_id is a user's portal
+            set news_package_id [ns_set get $args "news_package_id"]
+        } elseif {![empty_string_p $community_id]} {
+            # the portal_id is a community portal
+            ad_return_complaint 1  "[applet_key] aks1 unimplimented"
+        } else {
+            # the portal_id is a portal template
+            ad_return_complaint 1  "[applet_key] aks2 unimplimented"
+        }
+
+        news_portlet::remove_self_from_page \
+            -portal_id $portal_id \
+            -package_id $news_package_id
     }
 
     ad_proc -public clone {
