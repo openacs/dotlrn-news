@@ -147,6 +147,14 @@ select acs_sc_impl_alias__new (
         'TCL'
 );
 
+select acs_sc_impl_alias__new (
+        'dotlrn_applet',
+        'dotlrn_news',
+        'ChangeEventHandler',
+        'dotlrn_news::change_event_handler',
+        'TCL'
+);
+
 -- Add the binding
 select acs_sc_binding__new (
 	    'dotlrn_applet',

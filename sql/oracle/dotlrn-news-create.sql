@@ -147,6 +147,14 @@ begin
         impl_pl => 'TCL'
     );
 
+    foo := acs_sc_impl.new_alias (
+        impl_contract_name => 'dotlrn_applet',
+        impl_name => 'dotlrn_news',
+        impl_operation_name => 'ChangeEventHandler',
+        impl_alias => 'dotlrn_news::change_event_handler',
+        impl_pl => 'TCL'
+    );
+
 	-- Add the binding
 	acs_sc_binding.new (
 	    contract_name => 'dotlrn_applet',
