@@ -32,6 +32,13 @@ ad_library {
 
 namespace eval dotlrn_news {
     
+    ad_proc -public applet_key {
+    } {
+        return the applet_key
+    } {
+        return "dotlrn_news"
+    }
+
     ad_proc -public package_key {
     } {
 	get the package_key this applet deals with
@@ -57,7 +64,7 @@ namespace eval dotlrn_news {
     } {
 	One time init - must be repeatable!
     } {
-        dotlrn_applet::add_applet_to_dotlrn -applet_key "dotlrn_news"
+        dotlrn_applet::add_applet_to_dotlrn -applet_key [applet_key]
     }
 
     ad_proc -public add_applet_to_community {
@@ -65,18 +72,15 @@ namespace eval dotlrn_news {
     } {
 	Add the news applet to a specifc dotlrn community
     } {
-	# portal template stuff
-	set pt_id [dotlrn_community::get_portal_template_id $community_id]
+	set portal_id [dotlrn_community::get_portal_id -community_id $community_id]
 
-	# set up the DS for the portal template
-	news_portlet::make_self_available $pt_id
+	news_portlet::make_self_available $portal_id
 
         if {[dotlrn_community::dummy_comm_p -community_id $community_id]} {
-            news_portlet::add_self_to_page $pt_id 0
+            news_portlet::add_self_to_page $portal_id 0
             return
         }
 
-	# Callback to get node_id from community
 	# REVISIT this (ben)
 	set node_id [site_node_id [ad_conn url]]
 
@@ -84,10 +88,11 @@ namespace eval dotlrn_news {
 	set package_key [package_key]
 	set package_id [dotlrn::instantiate_and_mount $community_id $package_key]
 
-	news_portlet::add_self_to_page $pt_id $package_id
+	news_portlet::add_self_to_page $portal_id $package_id
 
 	# set up the DS for the admin portal
-        set admin_portal_id [dotlrn_community::get_community_admin_portal_id $community_id]
+        set admin_portal_id [dotlrn_community::get_admin_portal_id -community_id $community_id]
+
 	news_admin_portlet::make_self_available $admin_portal_id
 	news_admin_portlet::add_self_to_page $admin_portal_id $package_id
         
@@ -100,12 +105,6 @@ namespace eval dotlrn_news {
     } {
 	remove the applet from the community
     } {
-	# Remove all instances of the news portlet! (this is some serious stuff!)
-
-	# Dropping all messages, forums
-
-	# Killing the package
-    
     }
 
     ad_proc -public add_user {
@@ -116,46 +115,22 @@ namespace eval dotlrn_news {
 	return
     }
 
+    ad_proc -public remove_user {
+        user_id
+    } {
+    } {
+    }
+
     ad_proc -public add_user_to_community {
 	community_id
 	user_id
     } {
 	Add a user to a specifc dotlrn community
     } {
-        
-        # Get the package_id by callback
-        set package_id [dotlrn_community::get_applet_package_id \
-                $community_id \
-                dotlrn_news
-        ]
+        set package_id [dotlrn_community::get_applet_package_id $community_id [applet_key]]
+	set portal_id [dotlrn::get_workspace_portal_id $user_id]
 
-	# Get the personal per comm portal_id by callback
-	set portal_id [dotlrn_community::get_portal_id $community_id $user_id]
-	
-	if {[exists_and_not_null $portal_id]} {
-            # we have personal per comm portals
-            # Allow user to see the news folders
-            # nothing for now
-            
-            # Make news DS available to this page
-            news_portlet::make_self_available $portal_id
-
-            news_portlet::add_self_to_page $portal_id $package_id
-        }
-
-	# Now for the user workspace
-	set workspace_portal_id [dotlrn::get_workspace_portal_id $user_id]
-
-	# Add the portlet here
-	if { $workspace_portal_id != "" } {
-            news_portlet::add_self_to_page $workspace_portal_id $package_id
-        }
-    }
-
-    ad_proc -public remove_user {
-        user_id
-    } {
-    } {
+        news_portlet::add_self_to_page $portal_id $package_id
     }
 
     ad_proc -public remove_user_from_community {
@@ -164,20 +139,10 @@ namespace eval dotlrn_news {
     } {
 	Remove a user from a community
     } {
-	# Get the portal_id
-	set portal_id [dotlrn_community::get_portal_id $community_id $user_id]
-	
-	# Get the package_id by callback
-	set package_id [dotlrn_community::get_package_id $community_id]
+        set package_id [dotlrn_community::get_applet_package_id $community_id [applet_key]]
+	set portal_id [dotlrn::get_workspace_portal_id $user_id]
 
-	# Remove the portal element
-	news_portlet::remove_self_from_page $portal_id $package_id
-
-	# Buh Bye.
-	news_portlet::make_self_unavailable $portal_id
-
-	# remove user permissions to see news folders
-	# nothing to do here
+        news_portlet::remove_self_from_page $portal_id $package_id
     }
 	
 }
