@@ -74,8 +74,6 @@ namespace eval dotlrn_news {
     } {
 	set portal_id [dotlrn_community::get_portal_id -community_id $community_id]
 
-	news_portlet::make_self_available $portal_id
-
         if {[dotlrn_community::dummy_comm_p -community_id $community_id]} {
             news_portlet::add_self_to_page $portal_id 0
             return
@@ -93,7 +91,6 @@ namespace eval dotlrn_news {
 	# set up the DS for the admin portal
         set admin_portal_id [dotlrn_community::get_admin_portal_id -community_id $community_id]
 
-	news_admin_portlet::make_self_available $admin_portal_id
 	news_admin_portlet::add_self_to_page $admin_portal_id $package_id
         
 	return $package_id
