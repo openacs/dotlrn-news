@@ -49,9 +49,14 @@ namespace eval dotlrn_news {
 	# create the news package instance (all in one, I've mounted it)
 	set package_key [package_key]
 	set package_id [dotlrn::instantiate_and_mount $community_id $package_key]
-	# set package_id [site_node_mount_application -return package_id $node_id $package_key $package_key $package_key]
 
-	# return the package_id
+	# portal template stuff
+	set pt_id [dotlrn_community::get_portal_template_id $community_id]
+
+	# set up the DS for the portal template
+	news_portlet::make_self_available $pt_id
+	news_portlet::add_self_to_page $pt_id $package_id
+
 	return $package_id
     }
 
