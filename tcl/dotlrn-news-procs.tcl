@@ -75,7 +75,7 @@ namespace eval dotlrn_news {
 	set portal_id [dotlrn_community::get_portal_id -community_id $community_id]
 
         if {[dotlrn_community::dummy_comm_p -community_id $community_id]} {
-            news_portlet::add_self_to_page $portal_id 0
+            news_portlet::add_self_to_page -portal_id $portal_id -package_id 0
             return
         }
 
@@ -86,12 +86,12 @@ namespace eval dotlrn_news {
 	set package_key [package_key]
 	set package_id [dotlrn::instantiate_and_mount $community_id $package_key]
 
-	news_portlet::add_self_to_page $portal_id $package_id
+	news_portlet::add_self_to_page -portal_id $portal_id -package_id $package_id
 
 	# set up the DS for the admin portal
         set admin_portal_id [dotlrn_community::get_admin_portal_id -community_id $community_id]
 
-	news_admin_portlet::add_self_to_page $admin_portal_id $package_id
+	news_admin_portlet::add_self_to_page -portal_id $admin_portal_id -package_id $package_id
         
 	return $package_id
     }
@@ -127,7 +127,7 @@ namespace eval dotlrn_news {
         set package_id [dotlrn_community::get_applet_package_id $community_id [applet_key]]
 	set portal_id [dotlrn::get_workspace_portal_id $user_id]
 
-        news_portlet::add_self_to_page $portal_id $package_id
+        news_portlet::add_self_to_page -portal_id $portal_id -package_id $package_id
     }
 
     ad_proc -public remove_user_from_community {
