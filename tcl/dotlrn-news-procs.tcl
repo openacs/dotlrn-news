@@ -65,6 +65,17 @@ namespace eval dotlrn_news {
     } {
 	Add the news applet to a specifc dotlrn community
     } {
+	# portal template stuff
+	set pt_id [dotlrn_community::get_portal_template_id $community_id]
+
+	# set up the DS for the portal template
+	news_portlet::make_self_available $pt_id
+
+        if {[dotlrn_community::dummy_comm_p -community_id $community_id]} {
+            news_portlet::add_self_to_page $pt_id 0
+            return
+        }
+
 	# Callback to get node_id from community
 	# REVISIT this (ben)
 	set node_id [site_node_id [ad_conn url]]
@@ -73,11 +84,6 @@ namespace eval dotlrn_news {
 	set package_key [package_key]
 	set package_id [dotlrn::instantiate_and_mount $community_id $package_key]
 
-	# portal template stuff
-	set pt_id [dotlrn_community::get_portal_template_id $community_id]
-
-	# set up the DS for the portal template
-	news_portlet::make_self_available $pt_id
 	news_portlet::add_self_to_page $pt_id $package_id
 
 	# set up the DS for the admin portal
