@@ -29,9 +29,9 @@ declare
 begin
 	-- create the implementation
 	foo := acs_sc_impl.new (
-		'dotlrn_applet',
-		'dotlrn_news',
-		'dotlrn_news'
+		impl_contract_name => 'dotlrn_applet',
+		impl_name => 'dotlrn_news',
+		impl_owner_name => 'dotlrn_news'
 	);
 
 	-- add all the hooks
