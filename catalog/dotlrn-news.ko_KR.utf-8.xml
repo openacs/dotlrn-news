@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<message_catalog package_key="dotlrn-news" package_version="0.1a" locale="ko_KR" charset="utf-8">
-
-  <msg key="pretty_name">뉴스</msg>
-</message_catalog>
