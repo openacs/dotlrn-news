@@ -7,7 +7,7 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
 
-    <version name="2.0.3" url="http://openacs.org/repository/download/apm/dotlrn-news-2.0.3.apm">
+    <version name="2.1.0a" url="http://openacs.org/repository/download/apm/dotlrn-news-2.1.0a.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <release-date>2004-03-10</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
