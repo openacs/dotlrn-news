@@ -113,7 +113,7 @@ namespace eval dotlrn_news {
         user_id
     } {
     } {
-        ad_return_complaint 1 "[applet_key] remove_user not implimented!"
+        # noop
     }
 
     ad_proc -public add_user_to_community {
