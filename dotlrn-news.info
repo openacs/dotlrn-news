@@ -19,15 +19,6 @@
         <requires url="dotlrn" version="1.0"/>
         <requires url="news-portlet" version="0.1a"/>
 
-        <files>
-            <file type="package_spec" path="dotlrn-news.info"/>
-            <file type="data_model_create" db_type="oracle" path="sql/oracle/dotlrn-news-create.sql"/>
-            <file type="data_model_create" db_type="postgresql" path="sql/postgresql/dotlrn-news-create.sql"/>
-            <file type="data_model_drop" db_type="postgresql" path="sql/postgresql/dotlrn-news-drop.sql"/>
-            <file type="query_file" db_type="oracle" path="tcl/dotlrn-news-procs-oracle.xql"/>
-            <file type="query_file" db_type="postgresql" path="tcl/dotlrn-news-procs-postgresql.xql"/>
-            <file type="tcl_procs" path="tcl/dotlrn-news-procs.tcl"/>
-        </files>
         <parameters>
         <!-- No version parameters -->
         </parameters>
