@@ -41,7 +41,7 @@ namespace eval dotlrn_news {
     } {
 	One time init - must be repeatable!
     } {
-	return 1
+        dotlrn_community::add_applet_to_dotlrn -applet_key "dotlrn_news"
     }
 
     ad_proc -public add_applet_to_community {
