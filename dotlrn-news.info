@@ -10,11 +10,13 @@
     <version name="0.1a" url="http://openforce.net/software/dotlrn/dotlrn-news/0.1a">
     <database-support>
         <database>oracle</database>
+        <database>postgresql</database>
     </database-support>
         <owner url="mailto:arjun@openforce.net">Arjun Sanyal</owner>
         <owner url="mailto:ben@openforce.net">Ben Adida</owner>
 
-	<provides url="dotlrn-news" version="0.1a"/>
+        <provides url="dotlrn-news" version="0.1a"/>
+        <requires url="dotlrn" version="1.0"/>
         <requires url="news-portlet" version="0.1a"/>
 
         <files>
