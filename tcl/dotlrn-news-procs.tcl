@@ -79,29 +79,55 @@ namespace eval dotlrn_news {
             return
         }
 
-	# REVISIT this (ben)
-	set node_id [site_node_id [ad_conn url]]
-
 	# create the news package instance (all in one, I've mounted it)
 	set package_key [package_key]
 	set package_id [dotlrn::instantiate_and_mount $community_id $package_key]
 
-	news_portlet::add_self_to_page -portal_id $portal_id -package_id $package_id
+	news_portlet::add_self_to_page \
+            -portal_id $portal_id \
+            -package_id $package_id
 
 	# set up the DS for the admin portal
-        set admin_portal_id [dotlrn_community::get_admin_portal_id -community_id $community_id]
+        set admin_portal_id [dotlrn_community::get_admin_portal_id \
+                                 -community_id $community_id
+        ]
 
-	news_admin_portlet::add_self_to_page -portal_id $admin_portal_id -package_id $package_id
+	news_admin_portlet::add_self_to_page \
+            -portal_id $admin_portal_id \
+            -package_id $package_id
         
 	return $package_id
     }
 
-    ad_proc -public remove_applet {
+    ad_proc -public remove_applet_from_community {
 	community_id
-	package_id
     } {
 	remove the applet from the community
     } {
+        set package_id [dotlrn::get_community_applet_package_id \
+            -community_id $community_id \
+            -package_key [package_key]
+        ]
+
+        set admin_portal_id [dotlrn_community::get_admin_portal_id \
+                                 -community_id $community_id
+        ]
+	
+        set portal_id [dotlrn_community::get_portal_id \
+                           -community_id $community_id
+        ]
+
+	news_admin_portlet::remove_self_from_page \
+            -portal_id $admin_portal_id
+
+	news_portlet::remove_self_from_page \
+            -portal_id $portal_id \
+            -package_id $package_id
+
+        site_node_delete_package_instance \
+            -node_id [dotlrn::get_community_applet_node_id \
+                          -community_id $community_id \
+                          -package_key [package_key]]
     }
 
     ad_proc -public add_user {
@@ -139,7 +165,9 @@ namespace eval dotlrn_news {
         set package_id [dotlrn_community::get_applet_package_id $community_id [applet_key]]
 	set portal_id [dotlrn::get_workspace_portal_id $user_id]
 
-        news_portlet::remove_self_from_page $portal_id $package_id
+        news_portlet::remove_self_from_page \
+            -portal_id $portal_id \
+            -package_id $package_id
     }
 	
     ad_proc -public add_portlet {
