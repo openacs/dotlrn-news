@@ -50,7 +50,7 @@ namespace eval dotlrn_news {
     } {
 	returns the pretty name
     } {
-	return News
+       	return "[_ dotlrn-news.pretty_name]"
     }
 
     ad_proc -public add_applet {
