@@ -122,21 +122,26 @@ namespace eval dotlrn_news {
     } {
 	Add a user to a specifc dotlrn community
     } {
+        
+        # Get the package_id by callback
+        set package_id [dotlrn_community::get_applet_package_id \
+                $community_id \
+                dotlrn_news
+        ]
 
-#	ad_return_complaint 1 "$community_id $user_id"
-	# Get the portal_id by callback
+	# Get the personal per comm portal_id by callback
 	set portal_id [dotlrn_community::get_portal_id $community_id $user_id]
 	
-	# Get the package_id by callback
-	set package_id [dotlrn_community::get_applet_package_id $community_id dotlrn_news]
+	if {[exists_and_not_null $portal_id]} {
+            # we have personal per comm portals
+            # Allow user to see the news folders
+            # nothing for now
+            
+            # Make news DS available to this page
+            news_portlet::make_self_available $portal_id
 
-	# Allow user to see the news folders
-	# nothing for now
-
-	# Make news DS available to this page
-	news_portlet::make_self_available $portal_id
-
-	news_portlet::add_self_to_page $portal_id $package_id
+            news_portlet::add_self_to_page $portal_id $package_id
+        }
 
 	# Now for the user workspace
 	set workspace_portal_id [dotlrn::get_workspace_portal_id $user_id]
