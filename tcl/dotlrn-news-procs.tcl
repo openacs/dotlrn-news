@@ -38,11 +38,10 @@ namespace eval dotlrn_news {
     }
 
     ad_proc -public add_applet {
-	community_id
     } {
-	One time init 
+	One time init - must be repeatable!
     } {
-	return
+	return 1
     }
 
     ad_proc -public add_applet_to_community {
