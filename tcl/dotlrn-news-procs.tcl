@@ -107,13 +107,16 @@ namespace eval dotlrn_news {
 	# Allow user to see the news folders
 	# nothing for now
 
-	# Call the portal element to be added correctly
-
-
 	# Make news DS available to this page
 	news_portlet::make_self_available $portal_id
 
 	news_portlet::add_self_to_page $portal_id $package_id
+
+	# Now for the user workspace
+	set workspace_portal_id [dotlrn::get_workspace_portal_id $user_id]
+
+	# Add the portlet here
+	news_portlet::add_self_to_page $workspace_portal_id $package_id
     }
 
     ad_proc -public remove_user {
