@@ -50,7 +50,7 @@ namespace eval dotlrn_news {
     } {
 	One time init - must be repeatable!
     } {
-        dotlrn_applet::add_applet_to_dotlrn -applet_key [applet_key]
+        dotlrn_applet::add_applet_to_dotlrn -applet_key [applet_key] -package_key [my_package_key]
     }
 
     ad_proc -public remove_applet {
