@@ -40,7 +40,15 @@ namespace eval dotlrn_news {
     ad_proc -public add_applet {
 	community_id
     } {
-	Add the news applet
+	One time init 
+    } {
+	return
+    }
+
+    ad_proc -public add_applet_to_community {
+	community_id
+    } {
+	Add the news applet to a specifc dotlrn community
     } {
 	# Callback to get node_id from community
 	# REVISIT this (ben)
@@ -78,7 +86,16 @@ namespace eval dotlrn_news {
 	community_id
 	user_id
     } {
-	Add a user to a community
+	one time user-specifuc init
+    } {
+	return
+    }
+
+    ad_proc -public add_user_to_community {
+	community_id
+	user_id
+    } {
+	Add a user to a specifc dotlrn community
     } {
 
 #	ad_return_complaint 1 "$community_id $user_id"
