@@ -115,7 +115,7 @@ namespace eval dotlrn_news {
     } {
 	Add a user to a specifc dotlrn community
     } {
-        set package_id [dotlrn_community::get_applet_package_id $community_id [applet_key]]
+        set package_id [dotlrn_community::get_applet_package_id -community_id $community_id -applet_key [applet_key]]
         set portal_id [dotlrn::get_portal_id -user_id $user_id]
 
         # use "append" here since we want to aggregate
@@ -131,7 +131,7 @@ namespace eval dotlrn_news {
     } {
         Remove a user from a community
     } {
-        set package_id [dotlrn_community::get_applet_package_id $community_id [applet_key]]
+        set package_id [dotlrn_community::get_applet_package_id -community_id $community_id -applet_key [applet_key]]
         set portal_id [dotlrn::get_portal_id -user_id $user_id]
 
         set args [ns_set create]
@@ -193,8 +193,8 @@ namespace eval dotlrn_news {
         ns_log notice "Cloning: [applet_key]"
         set new_package_id [add_applet_to_community $new_community_id]
         set old_package_id [dotlrn_community::get_applet_package_id \
-                                $old_community_id \
-                                [applet_key]
+            -community_id $old_community_id \
+            -applet_key [applet_key]
         ]
 
         db_exec_plsql call_news_clone {}
