@@ -190,9 +190,15 @@ namespace eval dotlrn_news {
     } {
         Clone this applet's content from the old community to the new one
     } {
-        ns_log error "** Error in [get_pretty_name] 'clone' not implemented!"
-#        ad_return_complaint 1  "Please notifiy the administrator of this error:
-#        ** Error in [get_pretty_name]: 'clone' not implemented!"
+        ns_log notice "Cloning: [applet_key]"
+        set new_package_id [add_applet_to_community $new_community_id]
+        set old_package_id [dotlrn_community::get_applet_package_id \
+                                $old_community_id \
+                                [applet_key]
+        ]
+
+        db_exec_plsql call_news_clone {}
+        return $new_package_id
     }
 
 }
