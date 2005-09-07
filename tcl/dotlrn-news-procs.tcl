@@ -130,6 +130,21 @@ namespace eval dotlrn_news {
         ns_set put $args package_id $package_id
         ns_set put $args param_action append
         add_portlet_helper $portal_id $args
+
+	# add notification when a new user is added to the community
+        set type_id [notification::type::get_type_id -short_name one_news_item_notif]
+        set interval_id [notification::get_interval_id -name instant]
+        set delivery_method_id [notification::get_delivery_method_id -name email]
+	set community_package_id [dotlrn_community::get_package_id $community_id]
+	set news_package_id [db_string "getnewspackageid" "select package_id from apm_packages where package_key ='news' and package_id in (select object_id from acs_objects where context_id = :community_package_id)"]
+
+        notification::request::new \
+                -type_id $type_id \
+                -user_id $user_id \
+                -object_id $news_package_id \
+                -interval_id $interval_id \
+                -delivery_method_id $delivery_method_id
+
     }
 
     ad_proc -public remove_user_from_community {
@@ -145,6 +160,16 @@ namespace eval dotlrn_news {
         ns_set put $args package_id $package_id
 
         remove_portlet $portal_id $args
+
+	set community_package_id [dotlrn_community::get_package_id $community_id]
+	set news_package_id [db_string "getnewspackageid" "select package_id from apm_packages where package_key ='news' and package_id in (select object_id from acs_objects where context_id = :community_package_id)"]
+
+        notification::request::delete \
+                -request_id [notification::request::get_request_id \
+                    -type_id [notification::type::get_type_id -short_name one_news_item_notif] \
+                    -user_id $user_id \
+                    -object_id $news_package_id \
+                ]
     }
 	
     ad_proc -public add_portlet {
