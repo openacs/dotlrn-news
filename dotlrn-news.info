@@ -13,8 +13,8 @@
         <vendor url="http://openacs.org">OpenACS</vendor>
 
         <provides url="dotlrn-news" version="2.2.0a1"/>
-        <requires url="dotlrn" version="1.0"/>
-        <requires url="news-portlet" version="0.1a"/>
+        <requires url="dotlrn" version="2.2.a01"/>
+        <requires url="news-portlet" version="2.2.0a1"/>
 
         <parameters>
         <!-- No version parameters -->
