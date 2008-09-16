@@ -7,14 +7,14 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
 
-    <version name="2.4.0" url="http://openacs.org/repository/download/apm/dotlrn-news-2.4.0.apm">
+    <version name="2.4.1b1" url="http://openacs.org/repository/download/apm/dotlrn-news-2.4.1b1.apm">
         <owner url="http://openacs.org">OpenACS</owner>
-        <release-date>2008-06-22</release-date>
+        <release-date>2008-09-16</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
 
-        <provides url="dotlrn-news" version="2.4.0"/>
-        <requires url="dotlrn" version="2.4.0"/>
-        <requires url="news-portlet" version="2.4.0"/>
+        <provides url="dotlrn-news" version="2.4.1b1"/>
+        <requires url="dotlrn" version="2.4.1b1"/>
+        <requires url="news-portlet" version="2.4.1b1"/>
 
         <parameters>
         <!-- No version parameters -->
