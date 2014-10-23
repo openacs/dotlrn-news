@@ -7,16 +7,16 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
 
-    <version name="2.8.1b1" url="http://openacs.org/repository/download/apm/dotlrn-news-2.8.1b1.apm">
+    <version name="2.8.1b2" url="http://openacs.org/repository/download/apm/dotlrn-news-2.8.1b2.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>DotLRN Integration (Applet) for News</summary>
         <release-date>2011-10-30</release-date>
         <vendor url="http://dotlrn.org">DotLRN Consortium</vendor>
         <maturity>2</maturity>
 
-        <provides url="dotlrn-news" version="2.8.1b1"/>
-        <requires url="dotlrn" version="2.8.1b1"/>
-        <requires url="news-portlet" version="2.8.1b1"/>
+        <provides url="dotlrn-news" version="2.8.1b2"/>
+        <requires url="dotlrn" version="2.8.1b2"/>
+        <requires url="news-portlet" version="2.8.1b2"/>
 
         <parameters>
         <!-- No version parameters -->
