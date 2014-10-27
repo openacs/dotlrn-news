@@ -9,12 +9,14 @@
 
     <version name="2.9.0d1" url="http://openacs.org/repository/download/apm/dotlrn-news-2.9.0d1.apm">
         <owner url="http://openacs.org">OpenACS</owner>
+        <summary>DotLRN Integration (Applet) for News</summary>
         <release-date>2011-10-30</release-date>
-        <vendor url="http://openacs.org">OpenACS</vendor>
+        <vendor url="http://dotlrn.org">DotLRN Consortium</vendor>
+        <maturity>2</maturity>
 
         <provides url="dotlrn-news" version="2.9.0d1"/>
-        <requires url="dotlrn" version="2.6.0"/>
-        <requires url="news-portlet" version="2.6.0"/>
+        <requires url="dotlrn" version="2.9.0d1"/>
+        <requires url="news-portlet" version="2.9.0d1"/>
 
         <parameters>
         <!-- No version parameters -->

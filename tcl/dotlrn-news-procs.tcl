@@ -19,7 +19,7 @@ ad_library {
     Procs to set up the dotLRN news applet
     
     @author ben@openforce.net,arjun@openforce.net
-    @version $Id$
+    @cvs-id $Id$
 
 }
 
