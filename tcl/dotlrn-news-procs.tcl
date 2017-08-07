@@ -98,7 +98,7 @@ namespace eval dotlrn_news {
     } {
 	remove the applet from the community
     } {
-        ad_return_complaint 1 "[applet_key] remove_applet_from_community not implimented!"
+        ad_return_complaint 1 "[applet_key] remove_applet_from_community not implemented!"
     }
 
     ad_proc -public add_user {
@@ -136,7 +136,11 @@ namespace eval dotlrn_news {
         set interval_id [notification::get_interval_id -name instant]
         set delivery_method_id [notification::get_delivery_method_id -name email]
 	set community_package_id [dotlrn_community::get_package_id $community_id]
-	set news_package_id [db_string "getnewspackageid" "select package_id from apm_packages where package_key ='news' and package_id in (select object_id from acs_objects where context_id = :community_package_id)"]
+	set news_package_id [db_string getnewspackageid {
+            select package_id from apm_packages
+            where package_key ='news'
+            and package_id in (select object_id from acs_objects where context_id = :community_package_id)
+        }]
 
         notification::request::new \
                 -type_id $type_id \
@@ -162,7 +166,11 @@ namespace eval dotlrn_news {
         remove_portlet $portal_id $args
 
 	set community_package_id [dotlrn_community::get_package_id $community_id]
-	set news_package_id [db_string "getnewspackageid" "select package_id from apm_packages where package_key ='news' and package_id in (select object_id from acs_objects where context_id = :community_package_id)"]
+	set news_package_id [db_string getnewspackageid {
+            select package_id from apm_packages
+            where package_key ='news'
+            and package_id in (select object_id from acs_objects where context_id = :community_package_id)
+        }]
 
         notification::request::delete \
                 -request_id [notification::request::get_request_id \
@@ -244,3 +252,9 @@ namespace eval dotlrn_news {
     }   
 
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:
