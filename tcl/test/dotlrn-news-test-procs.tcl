@@ -26,6 +26,18 @@ aa_register_case \
     aa_equals "Applet key" "[dotlrn_news::applet_key]" "dotlrn_news"
 }
 
+
+aa_register_case -procs {
+        dotlrn_news::get_pretty_name
+    } -cats {
+        api
+        production_safe
+    } dotlrn_news__names {
+        Test diverse name procs.
+} {
+    aa_equals "Pretty name" "[dotlrn_news::get_pretty_name]" "[_ dotlrn-news.pretty_name]"
+}
+
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4
