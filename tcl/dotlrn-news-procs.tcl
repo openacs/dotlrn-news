@@ -134,7 +134,7 @@ namespace eval dotlrn_news {
         # add notification when a new user is added to the community
         set type_id [notification::type::get_type_id -short_name one_news_item_notif]
         set interval_id [notification::interval::get_id_from_name -name instant]
-        set delivery_method_id [notification::delivery::get_id -name email]
+        set delivery_method_id [notification::delivery::get_id -short_name email]
         set community_package_id [dotlrn_community::get_package_id $community_id]
         set news_package_id [db_string getnewspackageid {
             select package_id from apm_packages
